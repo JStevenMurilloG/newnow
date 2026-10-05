@@ -1,0 +1,111 @@
+/* Tokens de diseño de NewsNow. El modo oscuro es la experiencia principal. */
+:root {
+  color-scheme: dark;
+
+  /* superficies */
+  --bg: #060a18;
+  --bg-raised: #0a1124;
+  --surface: #0d1530;
+  --surface-2: #131d3f;
+  --surface-hover: #17224a;
+  --border: rgba(138, 164, 255, 0.13);
+  --border-strong: rgba(138, 164, 255, 0.28);
+
+  /* texto */
+  --text: #eaf0ff;
+  --text-2: #a7b3d6;
+  --text-3: #8894ba; /* 5,7:1 sobre --surface: AA en texto pequeño */
+
+  /* marca */
+  --primary: #3d7bff;
+  --primary-strong: #5b90ff;
+  --primary-soft: rgba(61, 123, 255, 0.16);
+  --on-primary: #ffffff;
+  --violet: #8b5cf6;
+  --violet-soft: rgba(139, 92, 246, 0.18);
+  --danger: #ff6b81;
+  --ok: #34d399;
+  --gradient: linear-gradient(120deg, #4d8dff 0%, #8b5cf6 100%);
+
+  /* atmósfera */
+  --glow-blue: rgba(61, 123, 255, 0.3);
+  --glow-violet: rgba(139, 92, 246, 0.22);
+  --stars: rgba(200, 215, 255, 0.5);
+  --glass: rgba(8, 13, 30, 0.68);
+  --scrim: rgba(3, 6, 16, 0.66);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 28px 64px -20px rgba(0, 0, 0, 0.7);
+
+  /* forma */
+  /* radios contenidos: tono editorial. La píldora queda solo para chips y botones */
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --r-full: 999px;
+
+  /* tipografía */
+  --font: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Sora Variable', 'Inter Variable', system-ui, sans-serif;
+  /* serif editorial: solo para titulares de noticia y lectura */
+  --font-serif: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
+
+  /* layout */
+  --sidebar: 248px;
+  --topbar: 64px;
+  --bottom-nav: 0px;
+  --gutter: clamp(16px, 3.2vw, 40px);
+  --content: 1320px;
+
+  /* movimiento */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --fast: 140ms;
+  --base: 240ms;
+  --slow: 480ms;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f3f6fd;
+  --bg-raised: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #edf1fb;
+  --surface-hover: #e6ecfa;
+  --border: rgba(24, 44, 110, 0.1);
+  --border-strong: rgba(24, 44, 110, 0.22);
+
+  --text: #0b1330;
+  --text-2: #44507a;
+  --text-3: #5a668e; /* 5,3:1 sobre --bg */
+
+  --primary: #1f5eff;
+  --primary-strong: #1549d6;
+  --primary-soft: rgba(31, 94, 255, 0.1);
+  --violet: #6d3df0;
+  --violet-soft: rgba(109, 61, 240, 0.1);
+  --danger: #d92d4b;
+  --ok: #0f9d6b;
+  --gradient: linear-gradient(120deg, #1f5eff 0%, #7a3ff2 100%);
+
+  --glow-blue: rgba(61, 123, 255, 0.2);
+  --glow-violet: rgba(139, 92, 246, 0.14);
+  --stars: transparent;
+  --glass: rgba(255, 255, 255, 0.72);
+  --scrim: rgba(12, 20, 50, 0.4);
+
+  --shadow-sm: 0 1px 2px rgba(20, 35, 90, 0.06);
+  --shadow: 0 12px 32px -14px rgba(20, 35, 90, 0.18);
+  --shadow-lg: 0 28px 64px -24px rgba(20, 35, 90, 0.28);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --sidebar: 0px;
+    --bottom-nav: calc(64px + env(safe-area-inset-bottom, 0px));
+    --topbar: 58px;
+  }
+}

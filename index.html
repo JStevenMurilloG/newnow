@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="NewsNow: explora las noticias del mundo seleccionando cualquier lugar del planeta." />
+    <meta name="theme-color" content="#060a18" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <title>NewsNow — Las noticias del mundo, en tus manos</title>
+    <script>
+      // Aplica el tema antes del primer pintado para evitar parpadeos.
+      (function () {
+        var theme = 'system';
+        try {
+          theme = JSON.parse(localStorage.getItem('newsnow-ui')).state.theme || 'system';
+        } catch (e) {}
+        if (theme === 'system') theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
