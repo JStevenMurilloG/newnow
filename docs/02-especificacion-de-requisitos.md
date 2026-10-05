@@ -80,7 +80,7 @@ Ninguna específica. Se adapta a puntero fino (ratón) y grueso (táctil).
 | Tipo | Cantidad | Implementados en 0.1.0 |
 | --- | --- | --- |
 | Funcionales | 35 | 35 |
-| No funcionales | 29 | 27 (2 parciales: cobertura de pruebas y límite de peticiones en el proxy) |
+| No funcionales | 29 | 27 cumplidos, 1 parcial (RNF-26, cobertura de pruebas) y 1 pendiente (RNF-11, límite de peticiones en el proxy) |
 
 ## 6. Trazabilidad
 
