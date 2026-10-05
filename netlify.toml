@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+
+# Rutas de la SPA (/c/co, /search…): la función /api/news se resuelve antes que esta regla.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -58,22 +58,36 @@ Los archivos `.env`, `.env.local` y `.env.*.local` están excluidos del control 
 | --- | --- | --- |
 | Desarrollo (`dev`) | Middleware de Vite | `no-store` |
 | Vista previa (`preview`) | Middleware de Vite sobre `dist/` | `no-store` |
-| Producción | Función serverless `api/news.ts` (formato Vercel) | 10 minutos en CDN para respuestas 200 |
+| Producción en Vercel | Función serverless `api/news.ts` | 10 minutos en CDN para respuestas 200 |
+| Producción en Netlify | Función `netlify/functions/news.mts`, publicada en `/api/news` | 10 minutos en CDN para respuestas 200 |
+
+Los tres adaptadores comparten `server/newsProxy.ts`: la API key solo se lee en el servidor.
 
 ## 6. Despliegue en producción
 
 > **Importante:** el plan gratuito de NewsAPI solo permite peticiones desde localhost. Publicar la app requiere un plan de pago.
 
-Pasos para un proveedor compatible con el formato de funciones de Vercel:
+### 6.1 Netlify
 
-1. Subir el proyecto a un repositorio Git (hoy la carpeta no es un repositorio).
-2. Importar el repositorio en el proveedor.
-3. Configuración de build: comando `npm run build`, directorio de salida `dist`.
-4. Definir `NEWSAPI_KEY` como variable de entorno secreta.
-5. Añadir una regla de reescritura para que las rutas de la SPA (`/c/co`, `/search`, etc.) respondan con `index.html`, excepto `/api/*`.
-6. Desplegar y ejecutar los casos CP-01, CP-10, CP-29 y CP-31 del plan de pruebas.
+El proyecto incluye `netlify.toml` (build, carpeta de funciones y regla para las rutas de la SPA) y la función `netlify/functions/news.mts`.
 
-El paso 5 no está configurado en el proyecto (no existe un archivo de configuración del proveedor); debe añadirse al preparar el despliegue.
+1. Importar el repositorio en Netlify. El comando de build (`npm run build`) y el directorio de salida (`dist`) se leen de `netlify.toml`.
+2. En el panel del sitio, definir la variable de entorno `NEWSAPI_KEY`, **sin** prefijo `VITE_`. La función la lee con `Netlify.env.get`.
+3. Desplegar.
+4. Ejecutar los casos CP-01, CP-10, CP-29 y CP-31 del plan de pruebas sobre el dominio publicado.
+
+Cómo viaja la key: el navegador pide `/api/news` a tu dominio sin ninguna key; la función la toma del entorno de Netlify y la envía a NewsAPI en la cabecera `X-Api-Key`. Nunca aparece en `dist/` ni en las peticiones del navegador.
+
+### 6.2 Vercel
+
+1. Importar el repositorio. Comando de build `npm run build`, directorio de salida `dist`.
+2. Definir `NEWSAPI_KEY` como variable de entorno.
+3. Añadir una regla de reescritura para que las rutas de la SPA (`/c/co`, `/search`, etc.) respondan con `index.html`, excepto `/api/*`. Esta regla no está configurada en el proyecto.
+4. Desplegar y ejecutar los mismos casos de prueba.
+
+### 6.3 La key nunca va en el repositorio
+
+El archivo `.env` no debe versionarse: la key se configura en el panel del proveedor. Si una key llega a subirse a un repositorio, hay que regenerarla en la cuenta de NewsAPI, porque queda en el historial aunque se borre el archivo.
 
 ## 7. Verificación tras instalar
 
